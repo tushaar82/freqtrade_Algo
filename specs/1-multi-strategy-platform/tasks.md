@@ -69,49 +69,49 @@
 **Test**: Deploy MA crossover on 2-3 stocks, verify signals/orders/P&L/logging
 
 ### Strategy Engine Service
-- [ ] T029 [P] [US1] Create services/strategy-engine-service/requirements.txt, Dockerfile, .env.example
-- [ ] T030 [US1] Create src/main.py, src/config.py
-- [ ] T031 [P] [US1] Create src/strategies/base.py (StrategyBase abstract class)
-- [ ] T032 [P] [US1] Create src/strategies/moving_average.py
-- [ ] T033 [US1] Create src/strategy_loader.py (dynamic loading)
-- [ ] T034 [US1] Create src/indicators.py (SMA, EMA, RSI)
-- [ ] T035 [US1] Create src/signal_generator.py
-- [ ] T036 [US1] Create src/kafka_consumer.py (market-data-stream)
-- [ ] T037 [US1] Create src/kafka_producer.py (signal-events)
-- [ ] T038 [US1] Create src/strategy_executor.py
+- [X] T029 [P] [US1] Create services/strategy-engine-service/requirements.txt, Dockerfile, .env.example
+- [X] T030 [US1] Create src/main.py, src/config.py
+- [X] T031 [P] [US1] Create src/strategies/base.py (StrategyBase abstract class)
+- [X] T032 [P] [US1] Create src/strategies/moving_average.py
+- [X] T033 [US1] Create src/strategy_loader.py (dynamic loading)
+- [X] T034 [US1] Create src/indicators.py (SMA, EMA, RSI)
+- [X] T035 [US1] Create src/signal_generator.py
+- [X] T036 [US1] Create src/kafka_consumer.py (market-data-stream)
+- [X] T037 [US1] Create src/kafka_producer.py (signal-events)
+- [X] T038 [US1] Create src/strategy_executor.py
 
 ### Order Management Service
-- [ ] T039 [P] [US1] Create services/order-management-service/requirements.txt, Dockerfile, .env.example
-- [ ] T040 [US1] Create src/main.py, src/config.py
-- [ ] T041 [US1] Create src/models/order.py (Order model)
-- [ ] T042 [US1] Create src/order_state_machine.py
-- [ ] T043 [US1] Create src/paper_trading.py (simulated execution)
-- [ ] T044 [US1] Create src/kafka_consumer.py (signal-events)
-- [ ] T045 [US1] Create src/kafka_producer.py (order-events)
-- [ ] T046 [US1] Create src/order_service.py
+- [X] T039 [P] [US1] Create services/order-management-service/requirements.txt, Dockerfile, .env.example
+- [X] T040 [US1] Create src/main.py, src/config.py
+- [X] T041 [US1] Create src/models/order.py (Order model)
+- [X] T042 [US1] Create src/order_state_machine.py
+- [X] T043 [US1] Create src/paper_trading.py (simulated execution)
+- [X] T044 [US1] Create src/kafka_consumer.py (signal-events)
+- [X] T045 [US1] Create src/kafka_producer.py (order-events)
+- [X] T046 [US1] Create src/order_service.py
 
 ### Position Tracking Service
-- [ ] T047 [P] [US1] Create services/position-tracking-service/requirements.txt, Dockerfile, .env.example
-- [ ] T048 [US1] Create src/main.py, src/config.py
-- [ ] T049 [US1] Create src/models/position.py, src/models/trade.py
-- [ ] T050 [US1] Create src/position_calculator.py
-- [ ] T051 [US1] Create src/stop_loss_manager.py (fixed/trailing)
-- [ ] T052 [US1] Create src/kafka_consumer.py (order-events, market-data-stream)
-- [ ] T053 [US1] Create src/kafka_producer.py (position-events)
-- [ ] T054 [US1] Create src/redis_cache.py
+- [X] T047 [P] [US1] Create services/position-tracking-service/requirements.txt, Dockerfile, .env.example
+- [X] T048 [US1] Create src/main.py, src/config.py
+- [X] T049 [US1] Create src/models/position.py, src/models/trade.py
+- [X] T050 [US1] Create src/position_calculator.py
+- [X] T051 [US1] Create src/stop_loss_manager.py (fixed/trailing)
+- [X] T052 [US1] Create src/kafka_consumer.py (order-events, market-data-stream)
+- [X] T053 [US1] Create src/kafka_producer.py (position-events)
+- [X] T054 [US1] Create src/redis_cache.py
 
 ### Dashboard API Service (US1 endpoints)
-- [ ] T055 [P] [US1] Create services/dashboard-api-service/requirements.txt, Dockerfile, .env.example
-- [ ] T056 [US1] Create src/main.py, src/config.py, src/database.py
-- [ ] T057 [US1] Create src/api/auth.py (POST /auth/login, /auth/refresh)
-- [ ] T058 [US1] Create src/api/strategies.py (CRUD + activate/pause/stop)
-- [ ] T059 [US1] Create src/api/positions.py (GET /positions, /positions/{id})
-- [ ] T060 [US1] Create src/services/strategy_service.py
-- [ ] T061 [US1] Create src/services/position_service.py
+- [X] T055 [P] [US1] Create services/dashboard-api-service/requirements.txt, Dockerfile, .env.example
+- [X] T056 [US1] Create src/main.py, src/config.py, src/database.py
+- [X] T057 [US1] Create src/api/auth.py (POST /auth/login, /auth/refresh)
+- [X] T058 [US1] Create src/api/strategies.py (CRUD + activate/pause/stop)
+- [X] T059 [US1] Create src/api/positions.py (GET /positions, /positions/{id})
+- [X] T060 [US1] Create src/services/strategy_service.py
+- [X] T061 [US1] Create src/services/position_service.py
 
 ### Database & Seed
-- [ ] T062 [US1] Create migration 002_add_order_position_trade_tables.py
-- [ ] T063 [P] [US1] Create scripts/seed_data.py (admin, instruments, sample strategy)
+- [X] T062 [US1] Create migration 002_add_order_position_trade_tables.py
+- [X] T063 [P] [US1] Create scripts/seed_data.py (admin, instruments, sample strategy)
 - [ ] T064 [US1] Run seed: `python scripts/seed_data.py`
 
 **Checkpoint**: US1 complete - strategies deploy, signals generate, orders simulate, positions track
