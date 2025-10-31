@@ -1,0 +1,619 @@
+openapi: 3.0.3
+info:
+  title: VELOX Trading Platform - Dashboard API
+  description: REST API for dashboard, strategy management, and user operations
+  version: 1.0.0
+  contact:
+    name: VELOX Platform Team
+
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Development server
+  - url: https://api.velox-trading.com/v1
+    description: Production server
+
+security:
+  - BearerAuth: []
+
+paths:
+  /auth/login:
+    post:
+      summary: User login
+      tags: [Authentication]
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  refresh_token:
+                    type: string
+                  user:
+                    $ref: '#/components/schemas/User'
+        '401':
+          description: Invalid credentials
+
+  /auth/refresh:
+    post:
+      summary: Refresh access token
+      tags: [Authentication]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [refresh_token]
+              properties:
+                refresh_token:
+                  type: string
+      responses:
+        '200':
+          description: Token refreshed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+
+  /strategies:
+    get:
+      summary: List all strategies
+      tags: [Strategies]
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [DRAFT, PAPER_TRADING, LIVE, PAUSED, STOPPED]
+        - name: mode
+          in: query
+          schema:
+            type: string
+            enum: [PAPER, LIVE]
+      responses:
+        '200':
+          description: List of strategies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Strategy'
+
+    post:
+      summary: Create new strategy
+      tags: [Strategies]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StrategyCreate'
+      responses:
+        '201':
+          description: Strategy created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Strategy'
+        '403':
+          description: Forbidden (Investor role cannot create strategies)
+
+  /strategies/{strategy_id}:
+    get:
+      summary: Get strategy details
+      tags: [Strategies]
+      parameters:
+        - name: strategy_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Strategy details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StrategyDetail'
+
+    patch:
+      summary: Update strategy
+      tags: [Strategies]
+      parameters:
+        - name: strategy_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StrategyUpdate'
+      responses:
+        '200':
+          description: Strategy updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Strategy'
+
+    delete:
+      summary: Delete strategy
+      tags: [Strategies]
+      parameters:
+        - name: strategy_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Strategy deleted
+
+  /strategies/{strategy_id}/activate:
+    post:
+      summary: Activate strategy (start paper trading or live trading)
+      tags: [Strategies]
+      parameters:
+        - name: strategy_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [mode]
+              properties:
+                mode:
+                  type: string
+                  enum: [PAPER, LIVE]
+      responses:
+        '200':
+          description: Strategy activated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Strategy'
+
+  /strategies/{strategy_id}/pause:
+    post:
+      summary: Pause strategy
+      tags: [Strategies]
+      parameters:
+        - name: strategy_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Strategy paused
+
+  /strategies/{strategy_id}/stop:
+    post:
+      summary: Stop strategy (close all positions)
+      tags: [Strategies]
+      parameters:
+        - name: strategy_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Strategy stopped
+
+  /positions:
+    get:
+      summary: List all active positions
+      tags: [Positions]
+      parameters:
+        - name: strategy_id
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [OPEN, CLOSED]
+      responses:
+        '200':
+          description: List of positions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Position'
+
+  /positions/{position_id}:
+    get:
+      summary: Get position details
+      tags: [Positions]
+      parameters:
+        - name: position_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Position details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PositionDetail'
+
+  /analytics/pnl:
+    get:
+      summary: Get P&L analytics
+      tags: [Analytics]
+      parameters:
+        - name: strategy_id
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: start_date
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: end_date
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: mode
+          in: query
+          schema:
+            type: string
+            enum: [PAPER, LIVE]
+      responses:
+        '200':
+          description: P&L analytics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PnLAnalytics'
+
+  /analytics/metrics:
+    get:
+      summary: Get performance metrics
+      tags: [Analytics]
+      parameters:
+        - name: strategy_id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Performance metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerformanceMetrics'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        full_name:
+          type: string
+        role:
+          type: string
+          enum: [ADMIN, INVESTOR]
+        created_at:
+          type: string
+          format: date-time
+
+    Strategy:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        strategy_type:
+          type: string
+        status:
+          type: string
+          enum: [DRAFT, PAPER_TRADING, LIVE, PAUSED, STOPPED]
+        mode:
+          type: string
+          enum: [PAPER, LIVE]
+        created_at:
+          type: string
+          format: date-time
+        activated_at:
+          type: string
+          format: date-time
+
+    StrategyCreate:
+      type: object
+      required: [name, strategy_type, config, risk_params]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        strategy_type:
+          type: string
+        config:
+          type: object
+        risk_params:
+          type: object
+        instruments:
+          type: array
+          items:
+            type: string
+            format: uuid
+
+    StrategyUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        config:
+          type: object
+        risk_params:
+          type: object
+
+    StrategyDetail:
+      allOf:
+        - $ref: '#/components/schemas/Strategy'
+        - type: object
+          properties:
+            config:
+              type: object
+            risk_params:
+              type: object
+            instruments:
+              type: array
+              items:
+                $ref: '#/components/schemas/Instrument'
+            active_positions:
+              type: integer
+            total_pnl:
+              type: number
+              format: double
+
+    Instrument:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        symbol:
+          type: string
+        exchange:
+          type: string
+          enum: [NSE, BSE, MCX, NFO]
+        instrument_type:
+          type: string
+          enum: [EQUITY, FUTURE, CALL_OPTION, PUT_OPTION]
+        lot_size:
+          type: integer
+
+    Position:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        strategy_id:
+          type: string
+          format: uuid
+        instrument:
+          $ref: '#/components/schemas/Instrument'
+        side:
+          type: string
+          enum: [LONG, SHORT]
+        quantity:
+          type: integer
+        entry_price:
+          type: number
+          format: double
+        current_price:
+          type: number
+          format: double
+        stop_loss_price:
+          type: number
+          format: double
+        unrealized_pnl:
+          type: number
+          format: double
+        status:
+          type: string
+          enum: [OPEN, CLOSED]
+        opened_at:
+          type: string
+          format: date-time
+
+    PositionDetail:
+      allOf:
+        - $ref: '#/components/schemas/Position'
+        - type: object
+          properties:
+            orders:
+              type: array
+              items:
+                $ref: '#/components/schemas/Order'
+            signals:
+              type: array
+              items:
+                $ref: '#/components/schemas/Signal'
+
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        side:
+          type: string
+          enum: [BUY, SELL]
+        order_type:
+          type: string
+          enum: [MARKET, LIMIT, STOP_LOSS, STOP_LOSS_MARKET]
+        quantity:
+          type: integer
+        price:
+          type: number
+          format: double
+        status:
+          type: string
+          enum: [PENDING, SUBMITTED, ACKNOWLEDGED, PARTIAL_FILLED, FILLED, REJECTED, CANCELLED]
+        filled_quantity:
+          type: integer
+        average_fill_price:
+          type: number
+          format: double
+        created_at:
+          type: string
+          format: date-time
+
+    Signal:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        signal_type:
+          type: string
+          enum: [ENTRY_LONG, ENTRY_SHORT, EXIT_LONG, EXIT_SHORT]
+        strength:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+        indicators:
+          type: object
+        reasoning:
+          type: string
+        generated_at:
+          type: string
+          format: date-time
+
+    PnLAnalytics:
+      type: object
+      properties:
+        total_pnl:
+          type: number
+          format: double
+        realized_pnl:
+          type: number
+          format: double
+        unrealized_pnl:
+          type: number
+          format: double
+        daily_pnl:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+                format: date
+              pnl:
+                type: number
+                format: double
+        strategy_breakdown:
+          type: array
+          items:
+            type: object
+            properties:
+              strategy_id:
+                type: string
+                format: uuid
+              strategy_name:
+                type: string
+              pnl:
+                type: number
+                format: double
+
+    PerformanceMetrics:
+      type: object
+      properties:
+        sharpe_ratio:
+          type: number
+          format: double
+        sortino_ratio:
+          type: number
+          format: double
+        calmar_ratio:
+          type: number
+          format: double
+        max_drawdown:
+          type: number
+          format: double
+        win_rate:
+          type: number
+          format: double
+        profit_factor:
+          type: number
+          format: double
+        total_trades:
+          type: integer
+        winning_trades:
+          type: integer
+        losing_trades:
+          type: integer
