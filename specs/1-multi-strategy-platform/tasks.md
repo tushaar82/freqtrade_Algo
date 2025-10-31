@@ -125,41 +125,41 @@
 **Test**: Open dashboard, verify P&L chart updates, price vs stop-loss chart, position table, strategy status
 
 ### Backend - WebSocket & Analytics
-- [ ] T065 [US2] Create services/dashboard-api-service/src/websocket/streams.py (/ws/dashboard)
-- [ ] T066 [US2] Create src/websocket/connection_manager.py
-- [ ] T067 [US2] Create src/websocket/redis_pubsub.py
-- [ ] T068 [US2] Update position-tracking-service to publish to Redis Pub/Sub
-- [ ] T069 [P] [US2] Create services/analytics-service/requirements.txt, Dockerfile, .env.example
-- [ ] T070 [US2] Create analytics-service src/main.py, src/config.py
-- [ ] T071 [US2] Create src/pnl_calculator.py
-- [ ] T072 [US2] Create src/metrics.py (Sharpe, Sortino, max drawdown)
-- [ ] T073 [US2] Create src/kafka_consumer.py (order-events, position-events)
-- [ ] T074 [US2] Create src/pnl_publisher.py (Redis Pub/Sub)
-- [ ] T075 [US2] Create dashboard-api-service src/api/analytics.py (GET /analytics/pnl, /metrics)
+- [X] T065 [US2] Create services/dashboard-api-service/src/websocket/streams.py (/ws/dashboard)
+- [X] T066 [US2] Create src/websocket/connection_manager.py
+- [X] T067 [US2] Create src/websocket/redis_pubsub.py
+- [X] T068 [US2] Update position-tracking-service to publish to Redis Pub/Sub
+- [X] T069 [P] [US2] Create services/analytics-service/requirements.txt, Dockerfile, .env.example
+- [X] T070 [US2] Create analytics-service src/main.py, src/config.py
+- [X] T071 [US2] Create src/pnl_calculator.py
+- [X] T072 [US2] Create src/metrics.py (Sharpe, Sortino, max drawdown)
+- [X] T073 [US2] Create src/kafka_consumer.py (order-events, position-events)
+- [X] T074 [US2] Create src/pnl_publisher.py (Redis Pub/Sub)
+- [X] T075 [US2] Create dashboard-api-service src/api/analytics.py (GET /analytics/pnl, /metrics)
 
 ### Frontend - React Setup
-- [ ] T076 [P] [US2] Initialize frontend/ with create-react-app --template typescript
-- [ ] T077 [P] [US2] Install: axios, recharts, tailwindcss, @headlessui/react, lucide-react
-- [ ] T078 [P] [US2] Configure TailwindCSS
-- [ ] T079 [P] [US2] Create .env (REACT_APP_API_URL, REACT_APP_WS_URL)
-- [ ] T080 [US2] Create src/services/api.ts, src/services/websocket.ts, src/services/auth.ts
-- [ ] T081 [US2] Create src/contexts/AuthContext.tsx, src/contexts/WebSocketContext.tsx
+- [X] T076 [P] [US2] Initialize frontend/ with create-react-app --template typescript
+- [X] T077 [P] [US2] Install: axios, recharts, tailwindcss, @headlessui/react, lucide-react
+- [X] T078 [P] [US2] Configure TailwindCSS
+- [X] T079 [P] [US2] Create .env (REACT_APP_API_URL, REACT_APP_WS_URL)
+- [X] T080 [US2] Create src/services/api.ts, src/services/websocket.ts, src/services/auth.ts
+- [X] T081 [US2] Create src/contexts/AuthContext.tsx, src/contexts/WebSocketContext.tsx
 
 ### Frontend - Components
-- [ ] T082 [P] [US2] Create src/components/Auth/Login.tsx
-- [ ] T083 [P] [US2] Create src/components/Dashboard/StrategyList.tsx
-- [ ] T084 [P] [US2] Create src/components/Dashboard/PositionTable.tsx
-- [ ] T085 [P] [US2] Create src/components/Dashboard/PnLChart.tsx (Recharts)
-- [ ] T086 [P] [US2] Create src/components/Dashboard/PriceStopLossChart.tsx
-- [ ] T087 [P] [US2] Create src/components/common/Navbar.tsx, Sidebar.tsx
-- [ ] T088 [US2] Create src/hooks/useDashboardWebSocket.ts
-- [ ] T089 [US2] Create src/hooks/usePositions.ts, src/hooks/usePnL.ts
+- [X] T082 [P] [US2] Create src/components/Auth/Login.tsx
+- [X] T083 [P] [US2] Create src/components/Dashboard/StrategyList.tsx
+- [X] T084 [P] [US2] Create src/components/Dashboard/PositionTable.tsx
+- [X] T085 [P] [US2] Create src/components/Dashboard/PnLChart.tsx (Recharts)
+- [X] T086 [P] [US2] Create src/components/Dashboard/PriceStopLossChart.tsx
+- [X] T087 [P] [US2] Create src/components/common/Navbar.tsx, Sidebar.tsx
+- [X] T088 [US2] Create src/hooks/useDashboardWebSocket.ts
+- [X] T089 [US2] Create src/hooks/usePositions.ts, src/hooks/usePnL.ts
 
 ### Frontend - Pages
-- [ ] T090 [US2] Create src/pages/LoginPage.tsx
-- [ ] T091 [US2] Create src/pages/DashboardPage.tsx
-- [ ] T092 [US2] Create src/App.tsx (React Router, protected routes)
-- [ ] T093 [US2] Update src/index.tsx (providers)
+- [X] T090 [US2] Create src/pages/LoginPage.tsx
+- [X] T091 [US2] Create src/pages/DashboardPage.tsx
+- [X] T092 [US2] Create src/App.tsx (React Router, protected routes)
+- [X] T093 [US2] Update src/index.tsx (providers)
 
 **Checkpoint**: US1+US2 complete - dashboard shows real-time updates
 
