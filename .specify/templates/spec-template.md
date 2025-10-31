@@ -100,6 +100,35 @@
 - **[Entity 1]**: [What it represents, key attributes without implementation]
 - **[Entity 2]**: [What it represents, relationships to other entities]
 
+### Risk Management Requirements *(mandatory for trading features)*
+
+<!--
+  ACTION REQUIRED: For features involving trading, order management, or capital deployment,
+  specify risk management requirements per Constitution Principle I & VII.
+-->
+
+- **RM-001**: Pre-trade risk checks MUST validate [e.g., "margin availability before order placement"]
+- **RM-002**: Position limits MUST enforce [e.g., "maximum 1-2% capital risk per trade"]
+- **RM-003**: Kill switches MUST be implemented at [e.g., "strategy, account, and portfolio levels"]
+- **RM-004**: Loss limits MUST trigger [e.g., "automatic trading suspension at 2% daily loss"]
+- **RM-005**: Regulatory compliance MUST ensure [e.g., "SEBI circuit breaker enforcement"]
+
+*Mark as N/A if feature does not involve trading or capital risk.*
+
+### Testing & Validation Requirements *(mandatory for trading features)*
+
+<!--
+  ACTION REQUIRED: For features involving trading logic or strategy execution,
+  specify testing requirements per Constitution Principle V & VIII.
+-->
+
+- **TV-001**: Backtesting MUST include [e.g., "slippage, STT, GST, exchange fees, broker commissions"]
+- **TV-002**: Paper trading MUST run for [e.g., "minimum 30 days in live market conditions"]
+- **TV-003**: Chaos testing MUST simulate [e.g., "broker API failures, network outages, bad data"]
+- **TV-004**: Performance validation MUST verify [e.g., "live results match backtested expectations within 10% tolerance"]
+
+*Mark as N/A if feature does not involve trading logic.*
+
 ## Success Criteria *(mandatory)*
 
 <!--

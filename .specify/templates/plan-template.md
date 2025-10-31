@@ -31,7 +31,59 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+**I. Regulatory Compliance & Risk Management**
+- [ ] SEBI compliance requirements identified and documented
+- [ ] Pre-trade risk validation requirements specified
+- [ ] Kill switch and position limit mechanisms designed
+- [ ] Audit trail requirements defined
+
+**II. System Architecture & Reliability**
+- [ ] Redundancy strategy defined (network, servers, brokers)
+- [ ] Failover mechanisms specified
+- [ ] Latency requirements documented (if HFT)
+- [ ] Data integrity and reconciliation approach defined
+
+**III. Market Data & Order Management**
+- [ ] Tick data streaming architecture specified
+- [ ] Order lifecycle state machine documented
+- [ ] Clock synchronization approach defined
+- [ ] Corporate action handling specified
+
+**IV. Multi-Broker Architecture**
+- [ ] Broker abstraction layer design documented
+- [ ] Independent position tracking mechanism specified
+- [ ] Broker failover strategy defined
+- [ ] Minimum 2 broker integrations planned
+
+**V. Strategy Development & Backtesting**
+- [ ] Backtesting framework includes all transaction costs
+- [ ] Paper trading validation period defined (minimum 30 days)
+- [ ] Walk-forward optimization approach specified
+- [ ] Overfitting prevention measures documented
+
+**VI. Monitoring & Alerting**
+- [ ] Real-time dashboard requirements specified
+- [ ] Multi-channel alerting mechanisms defined
+- [ ] Automated emergency response procedures documented
+- [ ] System health monitoring metrics identified
+
+**VII. Capital Preservation Over Profit Maximization**
+- [ ] Position sizing rules defined (max 1-2% risk per trade)
+- [ ] Daily/weekly/monthly loss limits specified
+- [ ] Market regime detection mechanisms planned
+- [ ] Drawdown-based position adjustment rules defined
+
+**VIII. Code Quality & Testing**
+- [ ] Test coverage requirements specified
+- [ ] Chaos engineering scenarios identified
+- [ ] Deployment pipeline stages defined (paper → small → full)
+- [ ] Rollback procedures documented
+
+**IX. Performance Metrics & Analysis**
+- [ ] Risk-adjusted return metrics defined (Sharpe, Sortino, Calmar)
+- [ ] Strategy degradation monitoring approach specified
+- [ ] Transaction cost analysis framework planned
+- [ ] Break-even win rate calculations documented
 
 ## Project Structure
 

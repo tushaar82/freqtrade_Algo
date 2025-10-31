@@ -159,6 +159,55 @@ Examples of foundational tasks (adjust based on your project):
 
 ---
 
+## Phase N+1: Trading System Validation *(for trading features only)*
+
+**Purpose**: Constitution-mandated validation before production deployment
+
+**⚠️ CRITICAL**: These gates MUST pass before any live capital deployment (Constitution Principles V, VII, VIII)
+
+### Risk Management Validation
+
+- [ ] TXXX Pre-trade risk checks verified (margin, position limits, price bands)
+- [ ] TXXX Kill switches tested at all levels (strategy, account, portfolio)
+- [ ] TXXX Loss limits validated (daily, weekly, monthly triggers)
+- [ ] TXXX Position sizing rules enforced (max 1-2% risk per trade)
+- [ ] TXXX SEBI compliance checks implemented and tested
+
+### Backtesting & Paper Trading
+
+- [ ] TXXX Backtesting completed with all transaction costs (slippage, STT, GST, fees)
+- [ ] TXXX Walk-forward optimization validated (no future data leakage)
+- [ ] TXXX Paper trading initiated (minimum 30 days required)
+- [ ] TXXX Paper trading performance monitored (must match backtest within tolerance)
+- [ ] TXXX Edge cases observed and handled (rejections, partial fills, API failures)
+
+### Chaos Engineering
+
+- [ ] TXXX Broker API failure simulation tested
+- [ ] TXXX Network outage handling validated
+- [ ] TXXX Bad data injection scenarios tested
+- [ ] TXXX Broker failover mechanism verified
+- [ ] TXXX Position reconciliation under failure conditions tested
+
+### Monitoring & Alerting
+
+- [ ] TXXX Real-time dashboard operational (P&L, positions, system health)
+- [ ] TXXX Multi-channel alerts configured (SMS, email, Telegram, phone)
+- [ ] TXXX Automated emergency responses tested (margin shortfall, loss limits)
+- [ ] TXXX Strategy degradation monitoring active
+
+### Deployment Gates
+
+- [ ] TXXX Paper trading completed successfully (30+ days)
+- [ ] TXXX All chaos tests passed
+- [ ] TXXX Risk management validation complete
+- [ ] TXXX Rollback procedure tested and documented
+- [ ] TXXX Small capital deployment plan approved (staged rollout)
+
+**Checkpoint**: Constitution compliance verified - ready for staged production deployment
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies
